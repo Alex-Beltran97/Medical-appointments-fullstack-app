@@ -1,6 +1,9 @@
 import { useState, useEffect, createContext, useContext } from 'react'
 import { IAppointment, IDoctor, IPatient, ISpeciality } from '../types'
 import { getAppointments } from '../actions/appointments.action';
+import { getSpecialities } from '../actions/specialities.action';
+import { getPatients } from '../actions/patients.action';
+import { getDoctors } from '../actions/doctors.action';
 
 type DataAvailable = {
   appointments?: IAppointment;
@@ -21,6 +24,9 @@ type Props = {
 
 const AppointmentsProvider = ({ children } : Props) => {
   const [appointments, setAppointments] = useState<IAppointment>();
+  const [patients, setPatients] = useState<IPatient>();
+  const [doctors, setDoctors] = useState<IDoctor>();
+  const [specialities, setSpecialities] = useState<ISpeciality>();
 
   const getAppointmentsData = async () =>{
     try {
@@ -28,7 +34,38 @@ const AppointmentsProvider = ({ children } : Props) => {
 
       setAppointments(data);
 
-      console.log(data);
+    } catch (error) {
+      console.log(error);
+    };
+  };
+
+  const getSpecialitiesData = async () =>{
+    try {
+      const { data } = await getSpecialities();
+
+      setSpecialities(data);
+
+    } catch (error) {
+      console.log(error);
+    };
+  };
+
+  const getPatientData = async () =>{
+    try {
+      const { data } = await getPatients();
+
+      setPatients(data);
+
+    } catch (error) {
+      console.log(error);
+    };
+  };
+
+  const getDoctorsData = async () =>{
+    try {
+      const { data } = await getDoctors();
+
+      setDoctors(data);
 
     } catch (error) {
       console.log(error);
@@ -37,10 +74,16 @@ const AppointmentsProvider = ({ children } : Props) => {
 
   useEffect(() => {
     getAppointmentsData();
+    getSpecialitiesData();
+    getPatientData();
+    getDoctorsData();
   }, []);
 
   return (<context.Provider value={{ 
-      appointments
+      appointments,
+      specialities,
+      patients,
+      doctors
     } }>
     { children }
   </context.Provider>);

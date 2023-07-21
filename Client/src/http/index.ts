@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { IAppointment, IAppointmentPayload } from '../types';
 
 const instance = () => axios.create({
   baseURL: 'http://localhost:3001/api/v1',
@@ -8,7 +9,8 @@ const instance = () => axios.create({
 });
 
 const http = {
-  get: (path: string) => instance().get(path)  
+  get: (path: string) => instance().get(path),
+  post: (path: string, data: IAppointmentPayload) => instance().post(path, data),
 };
 
 export default http;

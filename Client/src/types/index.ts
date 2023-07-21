@@ -36,12 +36,19 @@ export interface IAppointmentStates {
 }
 
 export interface IAppointment {
-  id: number;
+  id?: number;
   doctor: IDoctor;
   patient: IPatient;
   appointment_date: Date;
   appointment_state: IAppointmentStates;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IAppointmentPayload {
+  id_doctor: number;
+  id_patient: number;
+  appointment_date: string;
+  appointment_state: number;
 }
 

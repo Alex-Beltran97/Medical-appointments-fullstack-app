@@ -6,7 +6,9 @@ import { useAppointmentContext } from '../context/AppointmentsContext';
 
 const Home = () => {
   
-  const appointments = useAppointmentContext() || [];
+  const { appointments } = useAppointmentContext() || {
+    appointments: []
+  };
 
   return (<>
     <Typography variant='h4' component="h1" textAlign="center">Ultimas citas asignadas</Typography>
